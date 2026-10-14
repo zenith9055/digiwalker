@@ -1,0 +1,157 @@
+<!doctype html>
+<!--
+  디지워커 내려받기·패치노트 페이지 (GitHub Pages).
+  내용은 이 저장소의 GitHub Releases를 읽어 그린다 → 새 버전은 릴리스만 올리면 되고 이 파일은 안 고친다.
+  릴리스 하나 = 패치노트(본문) + 파일(DigiWalker-x.y.z.apk / DigiWalker-x.y.z-win.zip, 바뀐 쪽만).
+  저장소 주인·이름은 주소(주인.github.io/저장소)에서 읽는다.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>디지워커</title>
+<meta name="description" content="폰 화면 위를 걸어 다니는 내 디지몬 — 안드로이드·윈도우 내려받기와 패치노트">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">
+<style>
+  :root {
+    --bg: #2b2f3a; --panel: #3d4352; --lcd: #c4d4a0; --lcd-dark: #8fa070; --ink: #2a3320;
+    --text: #e8ecf2; --dim: #9aa3b5; --accent: #f2c14e; --danger: #e06464;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: Galmuri11, monospace; line-height: 1.6; }
+  a { color: var(--accent); }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
+
+  header { text-align: center; }
+  .lcd { background: var(--lcd) url(bg.jpg) center / cover; border: 6px solid #1c2029; outline: 2px solid #5a6275; border-radius: 14px;
+         padding: 28px 16px; color: var(--ink); image-rendering: pixelated; }
+  .lcd img { width: 96px; height: 96px; image-rendering: pixelated; }
+  h1 { font-family: Galmuri14, Galmuri11, monospace; font-size: 34px; margin: 8px 0 0; text-shadow: 2px 2px 0 var(--lcd); }
+  .tag { margin: 4px 0 0; font-size: 14px; }
+
+  .dl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0 8px; }
+  @media (max-width: 520px) { .dl { grid-template-columns: 1fr; } }
+  .btn { display: block; background: var(--panel); border: 2px solid #1c2029; border-radius: 10px; padding: 14px; text-decoration: none; color: var(--text);
+         box-shadow: 0 4px 0 #1c2029; transition: transform .05s; }
+  .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #1c2029; }
+  .btn b { display: block; font-size: 18px; color: var(--accent); }
+  .btn small { color: var(--dim); }
+  .btn.off { opacity: .45; pointer-events: none; }
+  .note { color: var(--dim); font-size: 13px; }
+
+  section { margin-top: 32px; }
+  h2 { font-size: 20px; border-bottom: 2px solid var(--panel); padding-bottom: 6px; }
+  details { background: var(--panel); border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
+  details summary { cursor: pointer; font-size: 16px; }
+  details summary .date { color: var(--dim); font-size: 13px; margin-left: 8px; }
+  .body h3 { font-size: 15px; color: var(--accent); margin: 16px 0 4px; }
+  .body ul { padding-left: 20px; margin: 4px 0; }
+  .body li { margin: 3px 0; }
+  .files a { display: inline-block; margin: 8px 8px 0 0; font-size: 13px; }
+
+  ol.how li { margin: 4px 0; }
+  footer { margin-top: 48px; color: var(--dim); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="lcd">
+      <img src="icon.png" alt="">
+      <h1>디지워커</h1>
+      <p class="tag">폰 화면 위를 걸어 다니는 내 디지몬</p>
+    </div>
+  </header>
+
+  <div class="dl">
+    <a class="btn off" id="apk" href="#"><b>안드로이드</b><small>불러오는 중…</small></a>
+    <a class="btn off" id="win" href="#"><b>윈도우</b><small>불러오는 중…</small></a>
+  </div>
+  <p class="note">친구 배틀·랭킹전은 서로 같은 버전이어야 해요. 새 버전이 나오면 다시 받아 주세요.</p>
+  <p class="note" id="err" hidden></p>
+
+  <section>
+    <h2>설치하는 법</h2>
+    <p><b>안드로이드</b></p>
+    <ol class="how">
+      <li>폰에서 APK를 받아 열어요.</li>
+      <li>"출처를 알 수 없는 앱" 허용을 물으면 허용해요.</li>
+      <li>예전 버전 위에 그대로 설치하면 키우던 디지몬이 이어져요.</li>
+    </ol>
+    <p><b>윈도우</b></p>
+    <ol class="how">
+      <li>압축 파일을 받아 아무 폴더에 풀어요.</li>
+      <li>디지워커.exe를 실행해요. "Windows의 PC 보호" 창이 뜨면 <i>추가 정보 → 실행</i>.</li>
+      <li>새 버전은 같은 폴더에 덮어 풀면 돼요 (저장은 따로 있어서 안 지워져요).</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>패치노트</h2>
+    <div id="notes"><p class="note">불러오는 중…</p></div>
+  </section>
+
+  <footer>
+    팬이 만든 비공식 앱이에요. 디지몬의 권리는 원저작자(반다이·토에이 애니메이션)에게 있어요.<br>
+    글꼴 <a href="https://github.com/quiple/galmuri">갈무리</a> (SIL OFL)
+  </footer>
+</main>
+
+<script>
+  // 주인.github.io/저장소/ → 주인/저장소 (다른 곳에서 열면 아래 값)
+  const owner = location.hostname.endsWith('.github.io') ? location.hostname.split('.')[0] : 'OWNER';
+  const repo = location.hostname.endsWith('.github.io') ? location.pathname.split('/')[1] || `${owner}.github.io` : 'digiwalker';
+  const MB = (n) => `${(n / 1048576).toFixed(0)}MB`;
+  const day = (s) => new Date(s).toLocaleDateString('ko-KR');
+
+  function setBtn(el, a, label) {
+    if (!a) return void (el.querySelector('small').textContent = '아직 없어요');
+    el.href = a.browser_download_url;
+    el.classList.remove('off');
+    el.querySelector('small').textContent = `${label} · ${MB(a.size)}`;
+  }
+
+  // body_html: GitHub가 마크다운을 HTML로 바꿔 준 것 (html+json)
+  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=50`, { headers: { Accept: 'application/vnd.github.html+json' } })
+    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+    .then((rels) => {
+      rels = rels.filter((r) => !r.draft);
+      const find = (re) => {
+        for (const r of rels) for (const a of r.assets) { const m = a.name.match(re); if (m) return [a, m[1]]; }
+        return [];
+      };
+      const [apk, av] = find(/^DigiWalker-([\d.]+)\.apk$/);
+      const [zip, wv] = find(/^DigiWalker-([\d.]+)-win\.zip$/);
+      setBtn(document.getElementById('apk'), apk, av && `v${av}`);
+      setBtn(document.getElementById('win'), zip, wv && `v${wv}`);
+
+      const box = document.getElementById('notes');
+      box.innerHTML = '';
+      if (!rels.length) box.innerHTML = '<p class="note">아직 릴리스가 없어요</p>';
+      rels.forEach((r, i) => {
+        const d = document.createElement('details');
+        d.open = i === 0;
+        d.innerHTML = `<summary>${r.name || r.tag_name}<span class="date">${day(r.published_at)}</span></summary><div class="body">${r.body_html || ''}</div>`;
+        const files = document.createElement('div');
+        files.className = 'files';
+        for (const a of r.assets) {
+          const x = document.createElement('a');
+          x.href = a.browser_download_url;
+          x.textContent = `${a.name} (${MB(a.size)})`;
+          files.append(x);
+        }
+        d.append(files);
+        box.append(d);
+      });
+    })
+    .catch((e) => {
+      const err = document.getElementById('err');
+      err.hidden = false;
+      err.textContent = `릴리스를 못 불러왔어요 (${e}). 잠시 뒤 새로고침해 주세요.`;
+      document.getElementById('notes').innerHTML = '';
+      for (const id of ['apk', 'win']) document.querySelector(`#${id} small`).textContent = '못 불러옴';
+    });
+</script>
+</body>
+</html>
