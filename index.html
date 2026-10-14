@@ -44,6 +44,7 @@
   h2 { font-size: 20px; border-bottom: 2px solid var(--panel); padding-bottom: 6px; }
   details { background: var(--panel); border-radius: 10px; padding: 12px 14px; margin: 10px 0; }
   details summary { cursor: pointer; font-size: 16px; }
+  .req { background: var(--danger); color: #fff; font-size: 12px; padding: 1px 6px; border-radius: 4px; margin-left: 8px; }
   details summary .date { color: var(--dim); font-size: 13px; margin-left: 8px; }
   .body h3 { font-size: 15px; color: var(--accent); margin: 16px 0 4px; }
   .body ul { padding-left: 20px; margin: 4px 0; }
@@ -68,7 +69,7 @@
     <a class="btn off" id="apk" href="#"><b>안드로이드</b><small>불러오는 중…</small></a>
     <a class="btn off" id="win" href="#"><b>윈도우</b><small>불러오는 중…</small></a>
   </div>
-  <p class="note">친구 배틀·랭킹전은 서로 같은 버전이어야 해요. 새 버전이 나오면 다시 받아 주세요.</p>
+  <p class="note">친구 배틀·랭킹전은 서로 같은 버전이어야 해요. 새 버전이 나오면 앱 위쪽에 알림이 떠요. <span class="req" style="margin:0">필수</span> 표시가 있는 버전은 꼭 받아 주세요.</p>
   <p class="note" id="err" hidden></p>
 
   <section>
@@ -112,8 +113,8 @@
     el.querySelector('small').textContent = `${label} · ${MB(a.size)}`;
   }
 
-  // body_html: GitHub가 마크다운을 HTML로 바꿔 준 것 (html+json)
-  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=50`, { headers: { Accept: 'application/vnd.github.html+json' } })
+  // body_html: GitHub가 마크다운을 HTML로 바꿔 준 것, body: 원문 (필수 표시 <!-- 필수 --> 를 본다)
+  fetch(`https://api.github.com/repos/${owner}/${repo}/releases?per_page=50`, { headers: { Accept: 'application/vnd.github.full+json' } })
     .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
     .then((rels) => {
       rels = rels.filter((r) => !r.draft);
@@ -132,7 +133,8 @@
       rels.forEach((r, i) => {
         const d = document.createElement('details');
         d.open = i === 0;
-        d.innerHTML = `<summary>${r.name || r.tag_name}<span class="date">${day(r.published_at)}</span></summary><div class="body">${r.body_html || ''}</div>`;
+        const req = /<!--\s*필수\s*-->/.test(r.body || '') ? '<span class="req">필수</span>' : '';
+        d.innerHTML = `<summary>${r.name || r.tag_name}${req}<span class="date">${day(r.published_at)}</span></summary><div class="body">${r.body_html || ''}</div>`;
         const files = document.createElement('div');
         files.className = 'files';
         for (const a of r.assets) {
