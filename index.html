@@ -49,6 +49,13 @@
   .body h3 { font-size: 15px; color: var(--accent); margin: 16px 0 4px; }
   .body ul { padding-left: 20px; margin: 4px 0; }
   .body li { margin: 3px 0; }
+  /* 강조 상자 (> 인용) · 표 — 큰 개편 패치노트용. 표는 폰 폭에서 가로로 밀어 봄 */
+  .body blockquote { margin: 8px 0 12px; padding: 10px 12px; background: #4a3940; border-left: 4px solid var(--danger); border-radius: 6px; }
+  .body blockquote p { margin: 2px 0; }
+  .body table { display: block; overflow-x: auto; border-collapse: collapse; margin: 6px 0 12px; font-size: 13px; }
+  .body th, .body td { border: 1px solid #1c2029; padding: 4px 8px; text-align: left; white-space: nowrap; }
+  .body th { background: #2b2f3a; color: var(--accent); }
+  .body td strong { color: var(--accent); }
   .files a { display: inline-block; margin: 8px 8px 0 0; font-size: 13px; }
 
   ol.how li { margin: 4px 0; }
@@ -135,6 +142,8 @@
         d.open = i === 0;
         const req = /<!--\s*필수\s*-->/.test(r.body || '') ? '<span class="req">필수</span>' : '';
         d.innerHTML = `<summary>${r.name || r.tag_name}${req}<span class="date">${day(r.published_at)}</span></summary><div class="body">${r.body_html || ''}</div>`;
+        // 자세한 패치노트(notes/<태그>.html)가 있으면 그것으로 — 릴리스 본문은 앱 업데이트 창에 뜨는 짧은 요약이라
+        fetch(`notes/${r.tag_name}.html`).then((x) => (x.ok ? x.text() : null)).then((h) => h && (d.querySelector('.body').innerHTML = h)).catch(() => {});
         const files = document.createElement('div');
         files.className = 'files';
         for (const a of r.assets) {
