@@ -46,9 +46,15 @@
   details summary { cursor: pointer; font-size: 16px; }
   .req { background: var(--danger); color: #fff; font-size: 12px; padding: 1px 6px; border-radius: 4px; margin-left: 8px; }
   details summary .date { color: var(--dim); font-size: 13px; margin-left: 8px; }
-  .body h3 { font-size: 15px; color: var(--accent); margin: 16px 0 4px; }
-  .body ul { padding-left: 20px; margin: 4px 0; }
-  .body li { margin: 3px 0; }
+  /* 패치노트: 줄·항목 간격을 넉넉히, 맨 위 요약은 상자, 소제목마다 구분선 (2026-10-26 — 따닥따닥 붙어 읽기 힘들다고 함) */
+  .body { font-size: 14px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
+  .body strong { color: var(--accent); }
+  .body > ul:first-child { background: var(--bg); border-radius: 8px; padding: 10px 14px 10px 30px; margin: 8px 0 4px; }
+  .body h3 { font-size: 15px; color: var(--accent); margin: 22px 0 6px; padding-top: 14px; border-top: 1px dashed #5a6275; }
+  .body ul { padding-left: 22px; margin: 4px 0; }
+  .body li { margin: 7px 0; padding-left: 2px; }
+  .body li::marker { color: var(--accent); }
+  .body p { margin: 8px 0; }
   /* 강조 상자 (> 인용) · 표 — 큰 개편 패치노트용. 표는 폰 폭에서 가로로 밀어 봄 */
   .body blockquote { margin: 8px 0 12px; padding: 10px 12px; background: #4a3940; border-left: 4px solid var(--danger); border-radius: 6px; }
   .body blockquote p { margin: 2px 0; }
